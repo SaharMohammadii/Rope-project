@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -22,7 +23,24 @@ public class Main {
                         System.out.println();
                     }
                     break;
-                default:
+                case "concat":
+                    Rope s1 = null;
+                    Rope s2 = null;
+                    int firstIndex=splited[2].charAt(0)-49;
+                    int secondIndex=splited[2].charAt(2)-49;
+                    if (AllRopes.size()>=secondIndex) {
+                        for (int i = 0; i < AllRopes.size(); i++) {
+                            if (i == firstIndex) {
+                                s1 = AllRopes.get(i);
+                            }
+                            if (i == secondIndex) {
+                                s2 = AllRopes.get(i);
+                            }
+                        }
+                        AllRopes.remove(firstIndex);
+                        AllRopes.add(firstIndex, Rope.concat(s1, s2));
+                        AllRopes.remove(secondIndex);
+                    }
             }
         }
     }

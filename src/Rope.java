@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class Rope {
     Node headNode;
+    static ArrayList<String> ropeToString = new ArrayList<>();
 
     public Rope(String string) {
         headNode = new Node(0, null);
@@ -34,8 +37,8 @@ public class Rope {
     }
 
     public String[] leftHalf(String[] sentence) {
-        String[] leftHalf = new String[(int) Math.ceil((float)sentence.length / 2)];
-        for (int i = 0; i < Math.ceil((float)sentence.length / 2); i++) {
+        String[] leftHalf = new String[(int) Math.ceil((float) sentence.length / 2)];
+        for (int i = 0; i < Math.ceil((float) sentence.length / 2); i++) {
             leftHalf[i] = sentence[i];
         }
         return leftHalf;
@@ -43,7 +46,7 @@ public class Rope {
 
     public String[] righthalf(String[] sentence) {
         String[] righthalf = new String[sentence.length / 2];
-        for (int j = 0, i = (int) Math.ceil((float)sentence.length / 2); j < sentence.length / 2; j++, i++) {
+        for (int j = 0, i = (int) Math.ceil((float) sentence.length / 2); j < sentence.length / 2; j++, i++) {
             righthalf[j] = sentence[i];
         }
         return righthalf;
@@ -52,7 +55,7 @@ public class Rope {
     public int numberOfLeftChars(String[] sentence) {
         // be dast avardane tedad character haye nimeye aval araye baraye size ptr
         int size = 0;
-        for (int i = 0; i <Math.ceil((float)sentence.length / 2); i++) {
+        for (int i = 0; i < Math.ceil((float) sentence.length / 2); i++) {
             size += sentence[i].length();
         }
         return size;
@@ -62,11 +65,38 @@ public class Rope {
     public void printRope(Node ptr) {
         if (ptr != null) {
             printRope(ptr.lNode);
-            if (ptr.string!=null) {
+            if (ptr.string != null) {
                 System.out.print(ptr.string);
             }
             printRope(ptr.rNode);
         }
+    }
+
+    public static void ropeToString(Node head) {
+        if(head!=null){
+            ropeToString(head.lNode);
+            if (head.string!=null){
+                ropeToString.add(head.string);
+            }
+            ropeToString(head.rNode);
+        }
+    }
+
+    public static Rope concat(Rope s1, Rope s2) {
+        ropeToString.clear();
+        ropeToString(s1.headNode);
+        ropeToString(s2.headNode);
+        return new Rope(toString(ropeToString));
+
+    }
+
+    public static String toString(ArrayList<String> arr){
+        String result="\"";
+        for (String s:arr) {
+            result+=s;
+        }
+        result+="\"";
+        return result;
     }
 }
 
